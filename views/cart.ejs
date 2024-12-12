@@ -4,8 +4,12 @@
     <title>Your Cart</title>
     <link rel="stylesheet" href="/css/cart.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="shortcut icon" href="https://i.pinimg.com/1200x/9c/0e/de/9c0edef80de1893774c8a74883a916f9.jpg" type="image/x-icon">
+
   </head>
   <body>
+    <%-include("./partial/Header");%>
     <div class="cart-container">
       <h1>Cart</h1>
       <br>
@@ -19,7 +23,7 @@
             
           <div class="info1">
             <img class="image"
-              src="https://res.cloudinary.com/drvlktf2h/image/upload/v1691843900/CodePlay/bvvfqhsu9bloceus9xyz.png"
+              src="<%= item.image %>"
               alt=""
             />
             <div class="infoo">

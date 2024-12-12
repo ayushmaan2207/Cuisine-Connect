@@ -45,8 +45,9 @@ body{
     justify-content: space-between;
 }
 .image{
-    width: 30%;
+    width: 200px;
     border-radius: 8px;
+    height: 120px;
 
 }
 .info1{

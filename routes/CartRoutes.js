@@ -7,6 +7,8 @@ const stripe = require('../middlewares/Stripe'); // Import Stripe
 const handleToken = require('../middlewares/validToken');
 const { CreateError } = require('../middlewares/ErrorHandling');
 
+const HeaderContent = ["Home", "Menu", "About", "Contact"];
+
 router.get('/cart', handleToken, async (req, res, next) => {
     const user = req.user; // User info from token
 
@@ -20,7 +22,7 @@ router.get('/cart', handleToken, async (req, res, next) => {
         }
 
         // Ensure that cart.items is an array even if it's empty
-        res.render('cart', { cart: cart.items || [], totalPrice: cart.totalPrice || 0 });
+        res.render('cart', { cart: cart.items || [], totalPrice: cart.totalPrice || 0 ,header: HeaderContent,user});
     } catch (err) {
         next(err);
     }
@@ -29,7 +31,7 @@ router.get('/cart', handleToken, async (req, res, next) => {
 
 // POST /cart: Add an item to the user's cart
 router.post('/cart', handleToken, async (req, res, next) => {
-    const { foodName, price, quantity } = req.body; // Get foodName, price, and quantity from the form
+    const { foodName, price, quantity,image } = req.body; // Get foodName, price, and quantity from the form
     const user = req.user; // User info from token
 
     try {
@@ -52,7 +54,7 @@ router.post('/cart', handleToken, async (req, res, next) => {
             existingItem.quantity += itemQuantity;
         } else {
             // Otherwise, add a new item with the quantity
-            cart.items.push({ foodName, price, quantity: itemQuantity });
+            cart.items.push({ foodName, price, quantity: itemQuantity,image });
         }
 
         // Recalculate the total price
