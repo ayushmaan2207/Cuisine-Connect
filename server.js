@@ -2,15 +2,7 @@ require('./config/dotenv');
 
 const express = require('express');
 const connectDB = require('./config/db');
-// const session = require('express-session');
-
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
-const redis = require('redis');
-const client = redis.createClient();
-
-
-
 const cookieParser = require('cookie-parser');
 const app = express();
 const path = require('path');
@@ -36,17 +28,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Built-in middleware to parse JSON bodies
 
 
-// app.use(session({
-//     secret: 'cuisine123', 
-//     resave: false,
-//     saveUninitialized: true
-// }));
 app.use(session({
-    store: new RedisStore({ client }),
-    secret: 'cuisine123',
+    secret: 'cuisine123', 
     resave: false,
-    saveUninitialized: false,
-  }));
+    saveUninitialized: true
+}));
+
 
 app.use(AuthRoutes);
 app.use(SignUpRoutes);
